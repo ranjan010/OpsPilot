@@ -1,0 +1,54 @@
+<section class="members-page">
+  <div class="members-header">
+    <div>
+      <h1 class="page-title">Workspace Members</h1>
+      <p class="page-subtitle">All members in your active workspace and their roles.</p>
+    </div>
+    <div class="header-actions">
+      <span class="member-count" *ngIf="!isLoading">{{ members.length }} member{{ members.length !== 1 ? 's' : '' }}</span>
+      <button class="btn-refresh" (click)="loadMembers()" title="Refresh">
+        ↺ Refresh
+      </button>
+    </div>
+  </div>
+
+  <!-- Loading -->
+  <div *ngIf="isLoading" class="loading-state">
+    <div class="spinner"></div>
+    <p>Loading members...</p>
+  </div>
+
+  <!-- Error -->
+  <div *ngIf="errorMessage" class="error-banner">
+    <span>⚠ {{ errorMessage }}</span>
+    <button (click)="loadMembers()">Retry</button>
+  </div>
+
+  <!-- Members Grid -->
+  <div *ngIf="!isLoading && !errorMessage && members.length" class="members-grid">
+    <div class="member-card" *ngFor="let member of members; trackBy: trackById">
+      <div class="member-avatar" [class]="getRoleClass(member.role)">
+        {{ getInitials(member) }}
+      </div>
+      <div class="member-info">
+        <div class="member-name">{{ member.firstName }} {{ member.lastName }}</div>
+        <div class="member-email">{{ member.email }}</div>
+        <div class="member-meta">
+          <span class="role-badge" [class]="getRoleClass(member.role)">
+            {{ getRoleLabel(member.role) }}
+          </span>
+          <span class="joined-date">
+            Joined {{ member.joinedAt | date:'mediumDate' }}
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Empty State -->
+  <div *ngIf="!isLoading && !errorMessage && members.length === 0" class="empty-state">
+    <div class="empty-icon">👥</div>
+    <h3>No members found</h3>
+    <p>This workspace has no members yet.</p>
+  </div>
+</section>

@@ -1,0 +1,53 @@
+<div class="workspace-container">
+  <div class="setup-card">
+    <div class="header">
+      <div class="logo">
+        <span class="pulse"></span>
+        <h1>OpsPilot</h1>
+      </div>
+      <h2>Create your Workspace</h2>
+      <p>Setup a dedicated, multi-tenant workspace for your team's support and work management.</p>
+    </div>
+
+    <form [formGroup]="setupForm" (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <label for="name">Organization Name</label>
+        <input
+          id="name"
+          type="text"
+          formControlName="name"
+          placeholder="e.g. Acme Support Team"
+          (input)="onNameInput()"
+        />
+        <div *ngIf="setupForm.get('name')?.invalid && setupForm.get('name')?.touched" class="error-msg">
+          Organization name is required (min 3 chars).
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="slug">Workspace URL Slug</label>
+        <div class="slug-input-wrapper">
+          <span class="prefix">opspilot.io/</span>
+          <input
+            id="slug"
+            type="text"
+            formControlName="slug"
+            placeholder="acme-support"
+          />
+        </div>
+        <div *ngIf="setupForm.get('slug')?.invalid && setupForm.get('slug')?.touched" class="error-msg">
+          Slug can only contain lowercase letters, numbers, and hyphens.
+        </div>
+      </div>
+
+      <div *ngIf="errorMessage" class="alert-error">
+        {{ errorMessage }}
+      </div>
+
+      <button type="submit" [disabled]="setupForm.invalid || isLoading" class="btn-primary">
+        <span *ngIf="!isLoading">Create Workspace & Launch</span>
+        <span *ngIf="isLoading" class="spinner"></span>
+      </button>
+    </form>
+  </div>
+</div>

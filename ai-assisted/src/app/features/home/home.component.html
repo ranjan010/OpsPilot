@@ -1,0 +1,72 @@
+<div class="dashboard-container">
+  <div class="dashboard-header">
+    <div>
+      <h1 class="title">Workspace Overview</h1>
+      <p class="subtitle" *ngIf="overview">
+        Active Tenant: <strong>{{ overview.name }}</strong> ({{ overview.slug }}) — Role: <span class="role-badge">{{ getRoleLabel(overview.userRole) }}</span>
+      </p>
+    </div>
+  </div>
+
+  <div *ngIf="isLoading" class="loading-state">
+    <div class="spinner"></div>
+    <p>Loading workspace metrics...</p>
+  </div>
+
+  <div *ngIf="errorMessage" class="error-state">
+    <p>{{ errorMessage }}</p>
+    <button (click)="loadOverview()" class="btn-retry">Retry</button>
+  </div>
+
+  <div *ngIf="!isLoading && overview" class="metrics-grid">
+    <div class="metric-card violet">
+      <div class="metric-icon">👥</div>
+      <div class="metric-info">
+        <span class="value">{{ overview.totalMembers }}</span>
+        <span class="label">Workspace Members</span>
+      </div>
+    </div>
+
+    <div class="metric-card blue">
+      <div class="metric-icon">📁</div>
+      <div class="metric-info">
+        <span class="value">{{ overview.totalProjects }}</span>
+        <span class="label">Active Projects</span>
+      </div>
+    </div>
+
+    <div class="metric-card emerald">
+      <div class="metric-icon">🎫</div>
+      <div class="metric-info">
+        <span class="value">{{ overview.totalOpenTickets }}</span>
+        <span class="label">Open Tickets</span>
+      </div>
+    </div>
+
+    <div class="metric-card amber">
+      <div class="metric-icon">📅</div>
+      <div class="metric-info">
+        <span class="value">{{ overview.createdAt | date:'mediumDate' }}</span>
+        <span class="label">Created Date</span>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="!isLoading && overview" class="quick-actions-section">
+    <h2>Workspace activity</h2>
+    <div class="activity-grid">
+      <div class="panel">
+        <h3>Recent projects</h3>
+        <ul>
+          <li *ngFor="let project of projects">{{ project.name }} <span>({{ project.key }})</span></li>
+        </ul>
+      </div>
+      <div class="panel">
+        <h3>Recent tickets</h3>
+        <ul>
+          <li *ngFor="let ticket of tickets">{{ ticket.title }} <span>({{ ticket.key }})</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>

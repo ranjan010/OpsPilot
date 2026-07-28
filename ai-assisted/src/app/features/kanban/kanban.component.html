@@ -1,0 +1,70 @@
+<section class="kanban-page">
+  <div class="kanban-header">
+    <div>
+      <h1 class="page-title">Kanban Board</h1>
+      <p class="page-subtitle">Drag tickets between columns to update their status.</p>
+    </div>
+    <button class="btn-refresh" (click)="loadTickets()" title="Refresh board">
+      <span class="refresh-icon">↺</span> Refresh
+    </button>
+  </div>
+
+  <!-- Loading -->
+  <div *ngIf="isLoading" class="loading-overlay">
+    <div class="spinner"></div>
+    <p>Loading board...</p>
+  </div>
+
+  <!-- Error -->
+  <div *ngIf="errorMessage" class="error-toast">
+    <span>⚠ {{ errorMessage }}</span>
+    <button (click)="errorMessage = ''">✕</button>
+  </div>
+
+  <!-- Board -->
+  <div *ngIf="!isLoading" class="kanban-board">
+    <div
+      *ngFor="let col of columns; trackBy: trackByColStatus"
+      class="kanban-column"
+      [class]="col.colorClass"
+      [class.drag-over]="dragOverColumn === col.status"
+      (dragover)="onDragOver($event, col.status)"
+      (dragleave)="onDragLeave()"
+      (drop)="onDrop($event, col.status)">
+
+      <div class="col-header">
+        <span class="col-label">{{ col.label }}</span>
+        <span class="col-count">{{ col.tickets.length }}</span>
+      </div>
+
+      <div class="col-body">
+        <div
+          *ngFor="let ticket of col.tickets; trackBy: trackByTicketId"
+          class="ticket-card"
+          draggable="true"
+          (dragstart)="onDragStart(ticket)"
+          [class.dragging]="draggingTicket?.id === ticket.id">
+
+          <div class="ticket-key">{{ ticket.key }}</div>
+          <div class="ticket-title">{{ ticket.title }}</div>
+          <div class="ticket-meta">
+            <span class="prio-badge" [class]="getPriorityClass(ticket.priority)">
+              {{ getPriorityLabel(ticket.priority) }}
+            </span>
+            <span *ngIf="ticket.assigneeName" class="assignee">
+              👤 {{ ticket.assigneeName }}
+            </span>
+            <span *ngIf="ticket.dueDate" class="due-date">
+              📅 {{ ticket.dueDate | date:'MMM d' }}
+            </span>
+          </div>
+          <p *ngIf="ticket.description" class="ticket-desc">{{ ticket.description }}</p>
+        </div>
+
+        <div *ngIf="col.tickets.length === 0" class="col-empty">
+          Drop tickets here
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

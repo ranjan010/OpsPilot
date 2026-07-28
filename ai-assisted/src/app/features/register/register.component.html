@@ -1,0 +1,51 @@
+<section class="auth-shell">
+  <div class="auth-card">
+    <div class="brand-panel">
+      <p class="eyebrow">AI ASSISTED</p>
+      <h1>Join our platform</h1>
+      <p>Create your account and unlock your intelligent workspace today.</p>
+      <ul>
+        <li>Collaborative workspace sharing</li>
+        <li>Rich interactive insights and metrics</li>
+        <li>Polished responsive interface</li>
+      </ul>
+    </div>
+
+    <div class="form-panel">
+      <h2>Sign Up</h2>
+      <p class="hint">Provide your details to get started</p>
+
+      <form [formGroup]="registerForm" (ngSubmit)="submit()">
+        <div class="row mb-3">
+          <div class="col">
+            <label class="form-label" for="firstName">First Name</label>
+            <input id="firstName" class="form-control" formControlName="firstName" type="text" placeholder="John" />
+          </div>
+          <div class="col">
+            <label class="form-label" for="lastName">Last Name</label>
+            <input id="lastName" class="form-control" formControlName="lastName" type="text" placeholder="Doe" />
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="email">Email Address</label>
+          <input id="email" class="form-control" formControlName="email" type="email" placeholder="john.doe@example.com" />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="password">Password</label>
+          <input id="password" class="form-control" formControlName="password" type="password" placeholder="••••••••" />
+        </div>
+
+        <div class="alert alert-danger" *ngIf="errorMessage">{{ errorMessage }}</div>
+        <div class="alert alert-success" *ngIf="successMessage">{{ successMessage }}</div>
+
+        <button class="btn btn-primary w-100" type="submit" [disabled]="registerForm.invalid">Register</button>
+
+        <div class="login-prompt">
+          <p>Already have an account? <a routerLink="/login">Sign in</a></p>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
