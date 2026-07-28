@@ -2,6 +2,12 @@
 
 <img width="1916" height="917" alt="image" src="https://github.com/user-attachments/assets/77baa4aa-6b94-442a-970c-8ea8ce40b59a" />
 
+<img width="1917" height="907" alt="image" src="https://github.com/user-attachments/assets/4b42e50c-d66b-4dd3-a5c0-5eac81caaa45" />
+
+<img width="1907" height="917" alt="image" src="https://github.com/user-attachments/assets/24e11730-fb10-407f-bbe2-a3c2dbdfeaee" />
+
+<img width="1902" height="907" alt="image" src="https://github.com/user-attachments/assets/6c0714c4-2528-4ae5-900b-4b2b3edfb667" />
+
 
 ## 1. Product Overview
 OpsPilot is a multi-tenant SaaS platform for client support and work management. It is designed for small service teams that need a workspace-based system for projects, tickets, members, and tenant-scoped reporting.
