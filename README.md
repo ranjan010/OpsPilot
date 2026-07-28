@@ -1,5 +1,8 @@
 # OpsPilot Product Documentation
 
+<img width="1916" height="917" alt="image" src="https://github.com/user-attachments/assets/77baa4aa-6b94-442a-970c-8ea8ce40b59a" />
+
+
 ## 1. Product Overview
 OpsPilot is a multi-tenant SaaS platform for client support and work management. It is designed for small service teams that need a workspace-based system for projects, tickets, members, and tenant-scoped reporting.
 
